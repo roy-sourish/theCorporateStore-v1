@@ -1,3 +1,15 @@
-export default function App() {
-  return <h1 className="text-3xl font-bold underline">theCorporate</h1>;
+import React from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+function App() {
+  return (
+    <div>
+      <Navbar />
+      <h1>HomePage</h1>
+      <Footer />
+    </div>
+  );
 }
+
+export default App;
