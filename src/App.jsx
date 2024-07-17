@@ -1,12 +1,15 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import FeaturedProducts from "./components/FeaturedProducts";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <h1>HomePage</h1>
+      <Hero />
+      <FeaturedProducts />
       <Footer />
     </div>
   );
