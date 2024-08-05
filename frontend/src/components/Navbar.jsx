@@ -2,9 +2,9 @@ import React from "react";
 
 function Navbar() {
   return (
-    <div className="navbar bg-base-100 ">
+    <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-2xl font-bold">theCorporate</a>
+        <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
@@ -49,7 +49,7 @@ function Navbar() {
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
             </div>
           </div>
