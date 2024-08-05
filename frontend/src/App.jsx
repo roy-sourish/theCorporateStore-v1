@@ -1,16 +1,10 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import FeaturedProducts from "./components/FeaturedProducts";
+import RootLayout from "./pages/RootLayout";
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <Hero />
-      <FeaturedProducts />
-      <Footer />
+      <RootLayout />
     </div>
   );
 }
