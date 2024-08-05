@@ -1,9 +1,20 @@
-import React from "react";
-
-import products from "../products.js";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import Product from "../components/Product.jsx";
 
 function HomePage() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get("api/products");
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
