@@ -13,7 +13,9 @@
   "author": "roy-sourish",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

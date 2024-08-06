@@ -1,12 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 
 import products from "./data/products.js";
 
 dotenv.config();
 const port = process.env.VITE_PORT || 5000;
 
-
+connectDB();
 const app = express();
 
 app.get("/", (req, res) => {
