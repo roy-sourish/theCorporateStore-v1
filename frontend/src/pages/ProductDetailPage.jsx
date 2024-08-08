@@ -1,17 +1,28 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice.js";
 import Loader from "../components/Loader.jsx";
+import { addToCart } from "../slices/cartSlice.js";
 
 function ProductDetailPage() {
   const { productId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [qty, setQty] = useState(1);
 
   const {
     data: product,
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
+
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+    navigate("/cart");
+  };
 
   return (
     <div className="max-w-screen-xl mx-auto p-10 ">
@@ -34,7 +45,7 @@ function ProductDetailPage() {
           </div>
 
           {/* Product Details */}
-          <div className="flex gap-10 mt-5  justify-center">
+          <div className="flex gap-10 mt-5 justify-center h-[32rem]">
             <div>
               <img
                 src={product.image}
@@ -64,13 +75,33 @@ function ProductDetailPage() {
                     {/* row 3 */}
                     <tr>
                       <td>
-                        Stock:{" "}
-                        {product.countInStock ? "Available" : "Out of Stock"}
+                        Stock:
+                        {product.countInStock ? " Available" : " Out of Stock"}
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <button className="btn mt-3">Add to Cart</button>
+                <div className="flex gap-5 justify-around items-start mt-5">
+                  <select
+                    className="select select-bordered w-full max-w-xs"
+                    value={qty}
+                    onChange={(e) => setQty(Number(e.target.value))}
+                  >
+                    {[...Array(product.countInStock).keys()].map((x) => (
+                      <option key={x + 1} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    ))}
+                  </select>
+
+                  <button
+                    className="btn"
+                    disabled={!product.countInStock}
+                    onClick={addToCartHandler}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
           </div>
