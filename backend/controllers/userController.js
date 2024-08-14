@@ -121,14 +121,27 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
  *   @access  Private/Admin
  */
 export const getUsers = asyncHandler(async (req, res) => {
-  res.send("get users");
+  const users = await User.find();
+  if (users) {
+    res.status(200).json(users);
+  } else {
+    res.status(404);
+    throw new Error("Users Not found");
+  }
 });
 
 // @desc    get user by id
 // @route   GET /api/users/:id
 // @access  Private/Admin
 export const getUserById = asyncHandler(async (req, res) => {
-  res.send("get users by id");
+  const userId = req.params.id;
+  const user = await User.findById(userId);
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404);
+    throw new Error("User Not found");
+  }
 });
 
 // @desc    delete users
