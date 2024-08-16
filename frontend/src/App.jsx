@@ -1,12 +1,16 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import store from "./store/store.js";
 
 import RootLayout from "./pages/RootLayout";
 import HomePage from "./pages/HomePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +29,10 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <CartPage />,
       },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
     ],
   },
 ]);
@@ -33,6 +41,19 @@ function App() {
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
     </Provider>
   );
 }
