@@ -6,12 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 import store from "./store/store.js";
 
-import RootLayout from "./pages/RootLayout";
-import HomePage from "./pages/HomePage";
-import ProductDetailPage from "./pages/ProductDetailPage";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import RootLayout from "./pages/RootLayout.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ProductDetailPage from "./pages/ProductDetailPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import ShippingPage from "./pages/ShippingPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,15 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterPage />,
+      },
+      {
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: "/shipping",
+            element: <ShippingPage />,
+          },
+        ],
       },
     ],
   },

@@ -4,6 +4,8 @@ const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : {
       cartItems: [],
+      shippingAddress: {},
+      paymentMethod: "PayPal",
     };
 
 const addDecimals = (num) => {
@@ -49,13 +51,28 @@ const cartSlice = createSlice({
       return updateCart(state);
     },
 
+    /**
+     * Removes an item from cart
+     * @param   state current "cart" state
+     * @param   action payload => itemID
+     * @returns updated cartstate
+     */
     removeFromCart: (state, action) => {
       const itemId = action.payload;
       state.cartItems = state.cartItems.filter((item) => item._id !== itemId);
       return updateCart(state);
     },
+
+    /**
+     * Save Shipping Address to state
+     */
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload;
+      return updateCart(state);
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress } =
+  cartSlice.actions;
 export default cartSlice.reducer;

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import Loader from "../components/Loader.jsx";
 import { useLoginMutation } from "../slices/usersApiSlice.js";
 import { setCredentials } from "../slices/authSlice.js";
 
