@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-
-import { saveShippingAddress } from "../slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { current } from "@reduxjs/toolkit";
+
+import { saveShippingAddress } from "../slices/cartSlice.js";
+import CheckoutSteps from "../components/CheckoutSteps.jsx";
 
 function ShippingPage() {
   const dispatch = useDispatch();
@@ -24,10 +24,11 @@ function ShippingPage() {
     navigate("/payment");
   };
 
-  const isLoading = false;
-
   return (
     <div className="card bg-base-100 p-10 shadow-2xl max-w-[80%] mx-auto mt-14 mb-[120px]">
+      <div className="mx-auto">
+        <CheckoutSteps step1 step2 />
+      </div>
       <h1 className="text-3xl  tracking-tight text-gray-900 text-center p-5">
         Shipping
       </h1>
@@ -115,11 +116,7 @@ function ShippingPage() {
           />
         </label>
         <button type="submit" className="btn w-full" disabled={false}>
-          {isLoading ? (
-            <span className="loading loading-dots loading-md"></span>
-          ) : (
-            "Continue"
-          )}
+          Continue
         </button>
       </form>
     </div>
