@@ -6,6 +6,8 @@ const initialState = localStorage.getItem("cart")
       cartItems: [],
       shippingAddress: {},
       paymentMethod: "",
+      shippingPrice: 0,
+      totalPrice: Number(0.0),
     };
 
 const addDecimals = (num) => {
@@ -18,7 +20,9 @@ const updateCart = (state) => {
     state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
   // Calculate Shipping Price ()
-  state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
+  state.shippingPrice = state.itemsPrice
+    ? addDecimals(state.itemsPrice > 100 ? 0 : 10)
+    : 0;
   // Calculate Tax Price
   state.taxPrice = addDecimals(Number(0.15 * state.itemsPrice).toFixed(2));
   // Calculate Total Price
@@ -90,6 +94,6 @@ export const {
   removeFromCart,
   saveShippingAddress,
   savePaymentMethod,
-  clearCart
+  clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -54,10 +54,18 @@ export const getMyOrders = asyncHandler(async (req, res) => {
 /**
  * @desc   Get order by id
  * @route  GET => api/orders/:id
- * @access Private/Admin
+ * @access Private
  */
 export const getOrderById = asyncHandler(async (req, res) => {
-  const orders = await Order.find(req.params.id).populate("user", "name email");
+  /* const order = await Order.find({ _id: req.params.id }).populate(
+    "user",
+    "name",
+    "email"
+  ); */
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
   if (order) {
     res.status(200).json(order);
   } else {
