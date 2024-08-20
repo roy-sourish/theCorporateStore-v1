@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGetOrderDetailsQuery } from "../slices/ordersApiSlice";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import Badge from "../components/Badge";
 
 function OrderPage() {
   const { id: orderId } = useParams();
@@ -31,7 +32,7 @@ function OrderPage() {
         </h2>
 
         <div className="border-b mb-5 py-2">
-          <div className="mb-2">
+          <div className="mb-3">
             <p>
               <strong>Name: </strong>
               {order.user.name}
@@ -47,52 +48,29 @@ function OrderPage() {
               {order.shippingAddress.country}
             </p>
           </div>
-          {order.isDelivered ? (
-            <div role="alert" className="alert alert-success">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 shrink-0 stroke-current"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>Order Delivered!</span>
-            </div>
-          ) : (
-            <div role="alert" className="alert alert-warning">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 shrink-0 stroke-current"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-              <span>Not Delivered</span>
-            </div>
-          )}
+          <Badge
+            flag={order.isDelivered}
+            lableTextFalse="Not Delivered"
+            lableTextTrue="Order Delivered"
+          />
         </div>
 
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-5">
           Payment Method
         </h2>
-        {order.paymentMethod && (
-          <p className="border-b my-5 py-2">
+
+        <div className="border-b my-5 py-2">
+          <p className="mb-5">
             <strong>Method: </strong>
             {order.paymentMethod}
           </p>
-        )}
+          <Badge
+            flag={order.isDelivered}
+            lableTextFalse="Not Paid"
+            lableTextTrue="Paid"
+          />
+        </div>
+
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-5">
           Order Items
         </h2>
