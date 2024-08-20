@@ -27,6 +27,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
         product: item._id,
         _id: undefined,
       })),
+      user: req.user._id,
       shippingAddress,
       paymentMethod,
       itemsPrice,
@@ -34,8 +35,8 @@ export const addOrderItems = asyncHandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     });
-    const createdOrder = await order.save();
 
+    const createdOrder = await order.save();
     res.status(201).json(createdOrder);
   }
 });
