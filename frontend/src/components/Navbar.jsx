@@ -104,6 +104,25 @@ function Navbar() {
                   <span className="badge">{userInfo.name}</span>
                 </Link>
               </li>
+              {userInfo && userInfo.isAdmin && (
+                <>
+                  <li>
+                    <Link to="/admin/productlist" className="justify-between">
+                      Products
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/userlist" className="justify-between">
+                      Users
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/orderlist" className="justify-between">
+                      Orders
+                    </Link>
+                  </li>
+                </>
+              )}
               <li>
                 <button onClick={logoutHandler}>Logout</button>
               </li>

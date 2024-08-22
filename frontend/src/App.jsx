@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import store from "./store/store.js";
 
+import AdminRoute from "./components/AdminRoute.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import RootLayout from "./pages/RootLayout.jsx";
 import HomePage from "./pages/HomePage.jsx";
@@ -18,6 +19,7 @@ import PaymentPage from "./pages/PaymentPage.jsx";
 import PlaceOrderPage from "./pages/PlaceOrderPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import OrderListPage from "./pages/admin/OrderListPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +68,15 @@ const router = createBrowserRouter([
           {
             path: "/profile",
             element: <ProfilePage />,
+          },
+        ],
+      },
+      {
+        element: <AdminRoute />,
+        children: [
+          {
+            path: "admin/orderlist",
+            element: <OrderListPage />,
           },
         ],
       },
