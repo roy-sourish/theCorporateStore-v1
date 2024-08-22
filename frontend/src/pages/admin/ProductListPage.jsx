@@ -1,12 +1,28 @@
 import React from "react";
-import { useGetProductsQuery } from "../../slices/productsApiSlice";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import {
+  useCreateProductMutation,
+  useGetProductsQuery,
+} from "../../slices/productsApiSlice";
 import Badge from "../../components/Badge";
 import Loader from "../../components/Loader";
-import { Link } from "react-router-dom";
 
 function ProductListPage() {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, refetch, isLoading, error } = useGetProductsQuery();
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
 
+  const createProductHandler = async () => {
+    if (window.confirm("Are you sure you want to create a new product?")) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
+    }
+  };
   const deleteHandler = (productId) => {
     console.log("delete" + productId);
   };
@@ -17,7 +33,7 @@ function ProductListPage() {
           <h2 className="text-2xl font-bold tracking-tight  p-5">
             Manage Products
           </h2>
-          <button className="btn btn-wide">
+          <button className="btn btn-wide" onClick={createProductHandler}>
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
@@ -35,7 +51,11 @@ function ProductListPage() {
                 d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
               />
             </svg>
-            Create Product
+            {loadingCreate ? (
+              <span className="loading loading-spinner text-primary"></span>
+            ) : (
+              "Create Product"
+            )}
           </button>
         </div>
 

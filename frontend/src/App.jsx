@@ -21,6 +21,7 @@ import OrderPage from "./pages/OrderPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import OrderListPage from "./pages/admin/OrderListPage.jsx";
 import ProductListPage from "./pages/admin/ProductListPage.jsx";
+import ProductEditPage from "./pages/admin/ProductEditPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
           {
             path: "admin/productlist",
             element: <ProductListPage />,
+          },
+          {
+            path: "admin/product/:id/edit",
+            element: <ProductEditPage />,
           },
         ],
       },
