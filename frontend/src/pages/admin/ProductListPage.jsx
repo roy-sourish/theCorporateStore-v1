@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   useCreateProductMutation,
+  useDeleteProductMutation,
   useGetProductsQuery,
 } from "../../slices/productsApiSlice";
 import Badge from "../../components/Badge";
@@ -10,8 +11,12 @@ import Loader from "../../components/Loader";
 
 function ProductListPage() {
   const { data: products, refetch, isLoading, error } = useGetProductsQuery();
+
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
+
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
 
   const createProductHandler = async () => {
     if (window.confirm("Are you sure you want to create a new product?")) {
@@ -23,9 +28,19 @@ function ProductListPage() {
       }
     }
   };
-  const deleteHandler = (productId) => {
-    console.log("delete" + productId);
+
+  const deleteHandler = async (productId) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        await deleteProduct(productId);
+        toast.success("Product Deleted");
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
+    }
   };
+
   return (
     <div>
       <div className=" xl:max-w-screen-xl lg:max-w-screen-lg sm:max-w-screen-sm mx-auto mt-14 mb-[174px]">
@@ -58,7 +73,9 @@ function ProductListPage() {
             )}
           </button>
         </div>
-
+        {loadingDelete && (
+          <span className="loading loading-ring loading-lg"></span>
+        )}
         {isLoading ? (
           <Loader />
         ) : error ? (
