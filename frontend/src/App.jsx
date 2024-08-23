@@ -22,6 +22,8 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import OrderListPage from "./pages/admin/OrderListPage.jsx";
 import ProductListPage from "./pages/admin/ProductListPage.jsx";
 import ProductEditPage from "./pages/admin/ProductEditPage.jsx";
+import UserListPage from "./pages/admin/UserListPage.jsx";
+import UserEditPage from "./pages/admin/UserEditPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -77,16 +79,24 @@ const router = createBrowserRouter([
         element: <AdminRoute />,
         children: [
           {
-            path: "admin/orderlist",
+            path: "/admin/orderlist",
             element: <OrderListPage />,
           },
           {
-            path: "admin/productlist",
+            path: "/admin/productlist",
             element: <ProductListPage />,
           },
           {
-            path: "admin/product/:id/edit",
+            path: "/admin/product/:id/edit",
             element: <ProductEditPage />,
+          },
+          {
+            path: "/admin/userlist",
+            element: <UserListPage />,
+          },
+          {
+            path: "/admin/user/:id/edit",
+            element: <UserEditPage />,
           },
         ],
       },

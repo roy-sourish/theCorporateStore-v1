@@ -11,7 +11,6 @@ import {
 
 function ProductEditPage() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { id: productId } = useParams();
 
