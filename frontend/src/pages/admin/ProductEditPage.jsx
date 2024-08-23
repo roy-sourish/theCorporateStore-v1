@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
+  useUploadProductImageMutation,
 } from "../../slices/productsApiSlice";
 
 function ProductEditPage() {
@@ -29,9 +30,11 @@ function ProductEditPage() {
     error,
   } = useGetProductDetailsQuery(productId);
 
-  console.log(product);
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
+
+  const [uploadProductImage, { isLoading: loadinUpload }] =
+    useUploadProductImageMutation();
 
   useEffect(() => {
     if (product) {
@@ -63,6 +66,18 @@ function ProductEditPage() {
     } else {
       toast.success("Product Updated");
       navigate("/admin/productlist");
+    }
+  };
+
+  const uploadFileHandler = async (e) => {
+    const fd = new FormData();
+    fd.append("image", e.target.files[0]);
+    try {
+      const res = await uploadProductImage(fd).unwrap();
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
     }
   };
 
@@ -113,7 +128,15 @@ function ProductEditPage() {
             <span className="label-text">Image</span>
           </div>
           <input
+            type="text"
+            placeholder="Enter Image URL"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className="input input-bordered w-full rounded"
+          />
+          <input
             type="file"
+            onChange={uploadFileHandler}
             className="file-input file-input-bordered w-full rounded"
           />
         </label>
